@@ -20,17 +20,8 @@ button {
     }
 }
 
-@keyframes blink{
-    from{
-        color:white;
-    }
-    to{
-        color:transparent;
-    }
-}
-
 body {
-    background:rgb(50,50,50);
+    background:rgb(30,30,30);
 }
 
 header {
@@ -69,13 +60,9 @@ header .nav button{
     font-weight: bold;
     transition: all 0.75s ease;
 }
-header .nav button:hover{
+header .nav button:active{
     color:rgb(20,20,20);
     background-size: 100%;
-}
-header .nav button:active{
-    transform: scale(90%,90%);
-    animation:blink 0.75s infinite;
 }
 
 main {
@@ -94,13 +81,13 @@ main {
 main .no-notes{
     color:white;
 }
-main .no-notes label{
+main .no-notes button{
     text-decoration: underline;
-    transition: 0.5s ease;
     cursor: pointer;
-}
-main .no-notes label:active{
-    color:rgb(20,20,20);
+    border:none;
+    outline:none;
+    background:none;
+    color:white;
 }
 main .note{
     background:white;
@@ -125,21 +112,21 @@ main .note button{
 main .note button:hover{
     opacity: .7;
 }
-main .note #delete-note{
+main .note .delete-note{
     color:white;
     background:red;
 }
-main .note #edit-note{
+main .note .edit-note{
     color:white;
     background:rgb(200,200,50);
 }
-main .note #download-note{
+main .note .download-note{
     cursor: pointer;
     color:white;
     padding:3px;
     background:green;
 }
-main .note #download-note:hover{
+main .note .download-note:hover{
     opacity: .7;
 }
 main .note .confirm-delete{
@@ -192,6 +179,9 @@ main .note .note-content .top{
 }
 main .note .note-content .top .close-note{
     background:rgb(220,220,220);
+    padding:5px 9px;
+    margin-top:10px;
+    margin-left:10px;
 }
 main .note .note-content .top .note-title{
     text-align: center;

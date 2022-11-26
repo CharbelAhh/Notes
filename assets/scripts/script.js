@@ -1,58 +1,58 @@
-document.getElementsByClassName("note")[0].style.display="none";
+function deleteNote(note){
+    let confirmBox=note.getElementsByClassName("confirm-delete")[0];
+    confirmBox.getElementsByClassName("note-name")[0].textContent=note.getElementsByClassName("title")[0].value;
+    confirmBox.style.display="flex";
+    let choices=note.getElementsByClassName("confirm-delete")[0].getElementsByTagName("button");
+    
+    choices[0].onclick=()=>{
+        note.getElementsByClassName("confirm-delete")[0].style.display="none";
+    }
+    choices[1].onclick=()=>{
+        document.body.getElementsByTagName("main")[0].removeChild(note)
+        
+        if (document.getElementsByTagName("main")[0].children.length<3)
+        document.getElementsByClassName("no-notes")[0].style.display="block";
+    }
+}
 
-document.getElementById("add").onclick=()=>{
+function downloadNote(note){
+    let content=note.getElementsByClassName("note-content")[0].getElementsByTagName("textarea")[0].value
+    const file = new File([content], note.getElementsByClassName("title")[0].value+".txt");
+    const fileURL=URL.createObjectURL(file);
+    note.getElementsByTagName("a")[0].href=fileURL;
+}
+
+function editNote(note){
+    note.getElementsByClassName("note-content")[0].style.display="flex";
+    note
+    .getElementsByClassName("note-title")[0].value=
+    note
+    .getElementsByClassName("title")[0].value
+    note.getElementsByClassName("note-content")[0].getElementsByClassName("close-note")[0].onclick=()=>{
+        note.getElementsByClassName("note-content")[0].style.display="none";
+    }
+}
+
+function addNote(){
     let newNote=document.getElementsByClassName("note")[0].cloneNode(true);
     newNote.style=`
     display:block;
     animation:popIn 0.5s 1;
     `;
+
+    newNote.getElementsByClassName("edit-note")[0].addEventListener("click",()=>{editNote(newNote)})
+    newNote.getElementsByClassName("delete-note")[0].addEventListener("click",()=>{deleteNote(newNote)})
+    newNote.getElementsByClassName("download-note")[0].addEventListener("click",()=>{downloadNote(newNote)})
+
+    let title=newNote.getElementsByTagName("input")[0];
+    title.onchange=()=>{
+        if (title.value.trim().length===0){
+            title.value="New Note";
+        }
+    }
+    
     document.getElementsByTagName("main")[0].appendChild(newNote);
     document.getElementsByClassName("no-notes")[0].style.display="none";
 }
 
-setInterval(() => {
-    Object.keys(document.getElementsByClassName("note")).forEach(element=>{
-        let notes=document.getElementsByClassName("note");
-        if (notes.length>1){
-        document.getElementsByClassName("note")[element].getElementsByTagName("a")[0].onclick=()=>{
-            let content=document.getElementsByClassName("note")[element].getElementsByClassName("note-content")[0].getElementsByTagName("textarea")[0].value
-            const file = new File([content], document.getElementsByClassName("note")[element].getElementsByClassName("title")[0].value+".txt");
-            const fileURL=URL.createObjectURL(file);
-            document.getElementsByClassName("note")[element].getElementsByTagName("a")[0].href=fileURL;
-        }
-        document.getElementsByClassName("note")[element].getElementsByTagName("button")[1].onclick=()=>{
-            let confirmBox=document.getElementsByClassName("note")[element].getElementsByClassName("confirm-delete")[0];
-            confirmBox.getElementsByClassName("note-name")[0].textContent=document.getElementsByClassName("note")[element].getElementsByClassName("title")[0].value;
-            confirmBox.style.display="flex";
-            let choices=document.getElementsByClassName("note")[element].getElementsByClassName("confirm-delete")[0].getElementsByTagName("button");
-            
-            choices[0].onclick=()=>{
-                document.getElementsByClassName("note")[element].getElementsByClassName("confirm-delete")[0].style.display="none";
-            }
-            choices[1].onclick=()=>{
-                document.body.getElementsByTagName("main")[0].removeChild(document.getElementsByClassName("note")[element])
-            }
-        }
-        document.getElementsByClassName("note")[element].getElementsByTagName("button")[0].onclick=()=>{
-            document.getElementsByClassName("note")[element].getElementsByClassName("note-content")[0].style.display="flex";
-            document.getElementsByClassName("note")[element]
-            .getElementsByClassName("note-title")[0].value=
-            document.getElementsByClassName("note")[element]
-            .getElementsByClassName("title")[0].value
-            document.getElementsByClassName("note")[element].getElementsByClassName("note-content")[0].getElementsByClassName("close-note")[0].onclick=()=>{
-                document.getElementsByClassName("note")[element].getElementsByClassName("note-content")[0].style.display="none";
-            }
-        }
-        
-        let title=document.getElementsByClassName("note")[element].getElementsByTagName("input")[0];
-        title.onchange=()=>{
-            if (title.value.trim().length===0){
-                title.value="New Note";
-            }
-        }
-    }
-    else{
-        document.getElementsByClassName("no-notes")[0].style.display="block";
-    }
-    })
-}, 0);
+document.getElementsByClassName("note")[0].style.display="none";

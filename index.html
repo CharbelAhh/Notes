@@ -12,18 +12,18 @@
     <header>
         <div class="name"><i class="fa fa-sticky-note"></i> <h2 class="title">My Notes</h2></div>
         <div class="nav">
-            <button id="add"><i class="fa fa-plus"></i> Add Note</button>
-            <button id="edit"><i class="fa fa-minus"></i> Edit Notes</button>
+            <button onclick="addNote()" id="add"><i class="fa fa-plus"></i> Add Note</button>
+            <button onclick="editNotes()" id="edit"><i class="fa fa-minus"></i> Edit Notes</button>
         </div>
     </header>
     <main>
-        <span class="no-notes">There are currently no notes. <label for="add">add one now!</label></span>
+        <span class="no-notes">There are currently no notes. <button onclick="addNote()" for="add">add one now!</button></span>
         <div class="note container">
             <input class="title" minlength="1" maxlength="16" value="New Note"></input>
             <div class="edit">
-                <button id="edit-note"><i class="fa fa-pen"></i></button>
-                <button id="delete-note"><i class="fa fa-trash"></i></button>
-                <a download="" id="download-note"><i class="fa fa-download"></i></a>
+                <button onclick="editNote()" class="edit-note"><i class="fa fa-pen"></i></button>
+                <button class="delete-note"><i class="fa fa-trash"></i></button>
+                <a download="" class="download-note"><i class="fa fa-download"></i></a>
             </div>
             <div class="confirm-delete">
                 <h1>Are you sure you want to delete <q><span class="note-name"></span></q> ?</h1>
@@ -34,7 +34,7 @@
             </div>
             <div class="note-content">
                 <div class="top">
-                    <button class="close-note"><i class="fa fa-xing"></i></button>
+                    <button class="close-note"><i class="fa fa-close"></i></button>
                     <input disabled value="Note Title" type="text" class="note-title">
                 </div>
                 <textarea class="note-body" cols="20" rows="10"></textarea>
